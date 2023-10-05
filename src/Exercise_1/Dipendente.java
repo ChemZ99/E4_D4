@@ -6,13 +6,13 @@ public class Dipendente {
     private double stipendio;
     private double importoOrarioStraordinario;
 
-    private enum livelli {
+    public enum livelli {
         operaio, impiegato, quadro, dirigente
     }
 
     private livelli livello;
 
-    private enum dipartimenti {
+    public enum dipartimenti {
         produzione, amministrazione, vendite
     }
 
@@ -49,6 +49,14 @@ public class Dipendente {
         this.dipartimento = dipartimento;
     }
 
+    public void setLivello(livelli livello) {
+        this.livello = livello;
+    }
+
+    public void setStipendio(double stipendio) {
+        this.stipendio = stipendio;
+    }
+
     public Dipendente(String matricola, dipartimenti dipartimento) {
         this.matricola = matricola;
         this.stipendio = stipendioBase;
@@ -63,8 +71,7 @@ public class Dipendente {
         this.dipartimento = dipartimento;
     }
 
-    @Override
-    public String stampaDati() {
+    public String toString() {
         return "Dipendente{" +
                 "stipendioBase=" + stipendioBase +
                 ", matricola='" + matricola + '\'' +
@@ -73,5 +80,21 @@ public class Dipendente {
                 ", livello=" + livello +
                 ", dipartimento=" + dipartimento +
                 '}';
+    }
+
+    public void promuovi() {
+        if (getLivello() == livelli.operaio) {
+            setLivello(livelli.impiegato);
+            setStipendio(stipendioBase*1.2);
+        } else if (getLivello() == livelli.impiegato) {
+            setLivello(livelli.quadro);
+            setStipendio(stipendioBase*1.5);
+        } else if (getLivello() == livelli.quadro) {
+            setLivello(livelli.dirigente);
+            setStipendio(stipendioBase*2);
+        } else {
+            System.err.println("error");
+        }
+        System.out.println(this.livello);
     }
 }
